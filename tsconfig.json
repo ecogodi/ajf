@@ -14,7 +14,9 @@
     "skipLibCheck": true,
     "target": "es2015",
     "lib": ["es5", "es2015", "dom"],
-    "types": ["jasmine"]
+    "types": ["jasmine"],
+        "resolveJsonModule": true,
+        "allowSyntheticDefaultImports": true
   },
   "include": [
     "src/**/*.ts",
