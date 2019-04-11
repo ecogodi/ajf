@@ -36,26 +36,51 @@ import {formSchema} from './form';
 export class FormsDemo {
   formSchema: string = JSON.stringify(formSchema);
   form: AjfForm = AjfForm.fromJson(formSchema);
+  formIsVisible: boolean = false;
   context: string = '{}';
+
+  messages: Array<string> = [];
 
   setSchema(): void {
     if (this.formSchema == null) {
       return;
     }
+    let formSchemaOb: object = {};
+    let context: any;
 
+    this.messages = [];
     try {
-      let schema = JSON.parse(this.formSchema);
-      let valid = new AjfJsonValidator().validate(schema);
+      formSchemaOb = JSON.parse(this.formSchema);
 
-      let context: any;
-      if (this.context != null && this.context.length > 0) {
-        context = JSON.parse(this.context);
+      let schemaIsValid =  AjfJsonValidator.validate(formSchemaOb);
+
+      if (!schemaIsValid) {
+        this.messages = this.messages.concat(
+          (AjfJsonValidator.getErrors() || [])
+            .map((e) =>
+              `${e.dataPath} ${e.message} (${Object.keys(e.params)
+                .map(k => `${k}=${Object(e.params)[k]}`)
+                .join(',')
+              })`
+            )
+        );
       } else {
-        context = {};
+        if (this.context != null && this.context.length > 0) {
+          context = JSON.parse(this.context);
+        } else {
+          context = {};
+        }
       }
-      this.form = AjfForm.fromJson(schema, context);
+
+      this.formIsVisible = schemaIsValid;
     } catch (e) {
       console.log(e);
+      this.messages.push(e);
+      this.formIsVisible = false;
+    }
+
+    if (this.formIsVisible) {
+      this.form = AjfForm.fromJson(formSchemaOb, context);
     }
   }
 }
