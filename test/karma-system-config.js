@@ -18,6 +18,7 @@ System.config({
     'numeral': 'node:numeral/numeral.js',
     'rxjs': 'node:rxjs',
     'tslib': 'node:tslib/tslib.js',
+    'ajv': 'node:ajv/dist/ajv.bundle.js',
 
     // Angular specific mappings.
     '@angular/core': 'node:@angular/core/bundles/core.umd.js',

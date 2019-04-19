@@ -44,6 +44,7 @@ module.exports = (config) => {
       {pattern: 'node_modules/leaflet/dist/leaflet.js', included: false, watched: false},
       {pattern: 'node_modules/ms/index.js', included: false, watched: false},
       {pattern: 'node_modules/numeral/**/*.js', included: false, watched: false},
+      {pattern: 'node_modules/ajv/dist/*', included: false, watched: false},
       {pattern: 'bundles/*.js', included: false, watched: false},
 
       {pattern: 'test/karma-system-config.js', included: true, watched: false},
