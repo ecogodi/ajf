@@ -33,8 +33,13 @@ const numeralConstructor: (value?: any) => any = (<any>numeral).default || numer
 
 
 export function digitCount(x: number): number {
-  if (x == null) { return 0; }
-  return x.toString().length;
+  if ( isNaN(x) || typeof(x) !== 'number') {
+    return 0;
+  }
+  if ( !isFinite(x)) {
+    return Infinity;
+  }
+  return x.toString().replace(/[^0-9]/g, '').length;
 }
 
 export function decimalCount(x: string|number): number {
