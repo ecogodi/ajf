@@ -8,6 +8,7 @@ module.exports = (config) => {
     frameworks: ['jasmine'],
     plugins: [
       require('karma-jasmine'),
+      require('karma-coverage'),
       require('karma-browserstack-launcher'),
       require('karma-sauce-launcher'),
       require('karma-chrome-launcher'),
@@ -58,10 +59,11 @@ module.exports = (config) => {
     customLaunchers: customLaunchers,
 
     preprocessors: {
-      'dist/packages/**/*.js': ['sourcemap']
+      'dist/packages/**/*.js': ['sourcemap'],
+      'dist/packages/**/!(*spec|*mock).js': "coverage"
     },
 
-    reporters: ['dots'],
+    reporters: ['dots','coverage'],
     autoWatch: false,
 
     sauceLabs: {
